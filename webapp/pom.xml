@@ -1,0 +1,66 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.example.maven-project</groupId>
+    <artifactId>maven-project</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+
+  <artifactId>webapp</artifactId>
+  <packaging>war</packaging>
+  <name>Webapp</name>
+  <description>Webapp.</description>
+
+  <build>
+    <finalName>${project.artifactId}</finalName>
+    <plugins>
+
+      <!-- Correctly closed maven-war-plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.4.0</version>  
+      </plugin>
+
+      <!-- Jetty Maven Plugin correctly placed -->
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>11.0.15</version>
+        <configuration>
+          <httpConnector>
+            <port>9090</port>  <!-- Change port if needed -->
+          </httpConnector>
+          <webApp>
+            <contextPath>/webapp</contextPath>
+          </webApp>
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>5.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>jakarta.servlet.jsp</groupId>
+      <artifactId>jakarta.servlet.jsp-api</artifactId>
+      <version>3.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+  </dependencies>
+
+</project>

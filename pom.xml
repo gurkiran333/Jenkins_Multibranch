@@ -1,0 +1,179 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.example.maven-project</groupId>
+  <artifactId>maven-project</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>Maven Project</name>
+  <description>Sample Maven project with a working, deployable site.</description>
+  <url>http://www.example.com</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+  </properties>
+
+  <modules>
+    <module>server</module>
+    <module>webapp</module>
+  </modules>
+
+  <distributionManagement>
+    <site>
+      <id>site-server</id>
+      <name>Test Project Site</name>
+      <url>file:///tmp/maven-project-site</url>
+    </site>
+  </distributionManagement>
+
+  <build>
+    <plugins>
+      <!-- Compiler Plugin -->
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.10.1</version>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
+        </configuration>
+      </plugin>
+
+      <!-- Maven Enforcer Plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <id>enforce-maven</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>[3.6.0,)</version>
+                </requireMavenVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Release Plugin (Updated) -->
+      <plugin>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>3.0.2</version>
+        <configuration>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+        </configuration>
+      </plugin>
+
+      <!-- Site Plugin -->
+      <plugin>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.12.1</version>
+      </plugin>
+
+      <!-- Jetty Plugin -->
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>11.0.15</version>
+        <configuration>
+          <webApp>
+            <contextPath>/</contextPath>
+          </webApp>
+          <httpConnector>
+            <port>8080</port>
+          </httpConnector>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.1.2</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <version>3.3.1</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.5.0</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.21.0</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>3.0.0-M7</version>
+      </plugin>
+    </plugins>
+  </reporting>
+
+  <dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>5.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.servlet.jsp</groupId>
+            <artifactId>jakarta.servlet.jsp-api</artifactId>
+            <version>2.3.3</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+            <version>2.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-library</artifactId>
+            <version>2.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>4.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <scm>
+    <connection>scm:git:git@github.com:jleetutorial/maven-project.git</connection>
+    <developerConnection>scm:git:git@github.com:jleetutorial/maven-project.git</developerConnection>
+    <tag>HEAD</tag>
+    <url>http://github.com/jleetutorial/maven-project</url>
+  </scm>
+
+</project>
